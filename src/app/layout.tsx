@@ -7,6 +7,9 @@ import { geistSans, geistMono, bebasNeue } from "@/lib/fonts";
 export const metadata: Metadata = {
   title: "Khushal Jain — Portfolio",
   description: "Khushal's portfolio",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

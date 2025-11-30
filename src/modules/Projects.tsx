@@ -127,7 +127,7 @@ function ProjectCardInner({ p }: { p: Project }) {
                 className="text-sm text-gray-700 hover:underline"
                 aria-label={`Open GitHub repo for ${p.title}`}
               >
-                <GithubIcon />
+                <Image src={"/github.svg"} alt="GitHub" width={30} height={30} />
               </a>
             )}
           </div>

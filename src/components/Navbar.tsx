@@ -1,14 +1,31 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { bebasNeue } from "@/lib/fonts";
-import { ChevronDown, Github, GithubIcon, LinkedinIcon, Mail } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+
+const SECTIONS = [
+  "home",
+  "about",
+  "skills",
+  "experience",
+  "projects",
+  "contact",
+] as const;
+type SectionId = (typeof SECTIONS)[number];
 
 export function Navbar() {
   const [hidden, setHidden] = useState(false);
   const lastScrollRef = useRef(0);
+
+  // active section id
+  const [active, setActive] = useState<SectionId>("home");
+  // keep a ref so IntersectionObserver handler doesn't need to re-create on active changes
+  const activeRef = useRef<SectionId>(active);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
 
   // dropdown state
   const [contactOpen, setContactOpen] = useState(false);
@@ -31,6 +48,72 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // IntersectionObserver: highlights nav links based on visible section.
+  useEffect(() => {
+    // Build list of elements to observe
+    const observedEls: HTMLElement[] = [];
+    for (const id of SECTIONS) {
+      const el = document.getElementById(id) as HTMLElement | null;
+      if (el) observedEls.push(el);
+    }
+
+    // If nothing to observe, bail
+    if (observedEls.length === 0) return;
+
+    // If you have a custom scroll container, use that as root so we observe relative to it.
+    const rootEl = document.getElementById("scroll-container") ?? null;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // We'll compute which observed element's center is nearest to the container center.
+        // Use getBoundingClientRect for stable measurement.
+        const rootRect = rootEl
+          ? rootEl.getBoundingClientRect()
+          : document.documentElement.getBoundingClientRect();
+        const containerTop = rootRect.top;
+        const containerBottom = rootRect.bottom;
+        const containerCenter = (containerTop + containerBottom) / 2;
+
+        let nearestId: SectionId | null = null;
+        let nearestDist = Infinity;
+
+        for (const el of observedEls) {
+          const r = el.getBoundingClientRect();
+          // skip elements that are completely offscreen? optional — but keeping them still works
+          const elCenter = (r.top + r.bottom) / 2;
+          const dist = Math.abs(elCenter - containerCenter);
+          if (dist < nearestDist) {
+            nearestDist = dist;
+            nearestId = el.id as SectionId;
+          }
+        }
+
+        if (nearestId && nearestId !== activeRef.current) {
+          // batch update on next frame to avoid thrash
+          requestAnimationFrame(() => {
+            // extra safety: re-check in case active changed already
+            if (nearestId && nearestId !== activeRef.current) {
+              setActive(nearestId);
+              activeRef.current = nearestId;
+            }
+          });
+        }
+      },
+      {
+        root: rootEl,
+        // keep a slightly negative bottom margin so the section "enters" a bit earlier if you want
+        rootMargin: "0px 0px -30% 0px",
+        // a few thresholds are fine; we don't rely on intersectionRatio ordering anymore
+        threshold: Array.from({ length: 5 }, (_, i) => i / 4),
+      }
+    );
+
+    observedEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+    // we intentionally do not add `active` to deps - activeRef keeps us in sync
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // close dropdown on outside click or Escape
   useEffect(() => {
     function onDocClick(e: MouseEvent) {
@@ -44,9 +127,6 @@ export function Navbar() {
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setContactOpen(false);
-      if (e.key === "Tab" && contactOpen) {
-        // let default tab behavior happen; optionally you can trap focus here
-      }
     }
 
     document.addEventListener("mousedown", onDocClick);
@@ -103,11 +183,19 @@ export function Navbar() {
   const githubUrl = "https://github.com/nottkhush";
   const mailTo = "mailto:khush6569@gmail.com";
 
+  // helper to compute link class for active state — use border to avoid text reflow
+  const linkClass = (id: SectionId) =>
+    `cursor-pointer px-1 pb-1 transition-all duration-200 border-b-2 ${
+      active === id
+        ? "border-[#ed501f] text-[#ed501f]"
+        : "border-transparent hover:border-gray-200 text-gray-900"
+    }`;
+
   return (
     <div
       className={`
         fixed top-0 left-0 w-full z-50 flex justify-center mt-4 
-        transition-transform duration-300 
+        transition-transform duration-300 transform-gpu
         ${hidden ? "-translate-y-32" : "translate-y-0"}
       `}
     >
@@ -132,35 +220,35 @@ export function Navbar() {
           <a
             href="#home"
             onClick={(e) => smartScroll(e, "home")}
-            className="hover:underline"
+            className={linkClass("home")}
           >
             Home
           </a>
           <a
             href="#about"
             onClick={(e) => smartScroll(e, "about")}
-            className="hover:underline"
+            className={linkClass("about")}
           >
             About
           </a>
           <a
             href="#skills"
             onClick={(e) => smartScroll(e, "skills")}
-            className="hover:underline"
+            className={linkClass("skills")}
           >
             Skills
           </a>
           <a
             href="#experience"
             onClick={(e) => smartScroll(e, "experience")}
-            className="hover:underline"
+            className={linkClass("experience")}
           >
             Experience
           </a>
           <a
             href="#projects"
             onClick={(e) => smartScroll(e, "projects")}
-            className="hover:underline"
+            className={linkClass("projects")}
           >
             Projects
           </a>
@@ -171,19 +259,22 @@ export function Navbar() {
               aria-haspopup="true"
               aria-expanded={contactOpen}
               onClick={() => setContactOpen((s) => !s)}
-              className="text-md font-medium text-[#ed501f] hover:underline flex items-center gap-2"
+              className={`text-md font-medium flex items-center gap-2 ${
+                active === "contact"
+                  ? "border-b-2 border-[#ed501f] text-[#ed501f]"
+                  : "text-[#ed501f] hover:underline"
+              }`}
               aria-label="Open contact menu"
             >
               Contact
-              {/* small chevron */}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown  size={18}/>
             </button>
 
             {/* Dropdown */}
             <div
               role="menu"
               aria-label="Contact options"
-              className={`absolute right-0 mt-3 w-18 bg-white rounded-lg border border-gray-100 shadow-lg py-2 z-50 transform origin-top-right transition-all ${
+              className={`absolute right-0 mt-3 w-20 bg-white rounded-lg border border-gray-100 shadow-lg py-2 z-50 transform origin-top-right transition-all ${
                 contactOpen
                   ? "opacity-100 scale-100 pointer-events-auto"
                   : "opacity-0 scale-95 pointer-events-none"
@@ -197,7 +288,11 @@ export function Navbar() {
                 rel="noopener noreferrer"
                 role="menuitem"
                 className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                onClick={() => setContactOpen(false)}
+                onClick={() => {
+                  setContactOpen(false);
+                  setActive("contact");
+                  activeRef.current = "contact";
+                }}
               >
                 <svg
                   className="w-5 h-5 text-[#0A66C2]"
@@ -213,7 +308,11 @@ export function Navbar() {
                 href={mailTo}
                 role="menuitem"
                 className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                onClick={() => setContactOpen(false)}
+                onClick={() => {
+                  setContactOpen(false);
+                  setActive("contact");
+                  activeRef.current = "contact";
+                }}
               >
                 <svg
                   className="w-5 h-5 text-[#EA4335]"
@@ -231,7 +330,11 @@ export function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                onClick={() => setContactOpen(false)}
+                onClick={() => {
+                  setContactOpen(false);
+                  setActive("contact");
+                  activeRef.current = "contact";
+                }}
               >
                 <svg
                   className="w-5 h-5 text-gray-800"
@@ -265,4 +368,3 @@ export function Navbar() {
     </div>
   );
 }
-

@@ -12,10 +12,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} antialiased bg-[#f7f6f2]`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} antialiased bg-[#f7f6f2]`}
+      >
         <Navbar />
         {children}
       </body>

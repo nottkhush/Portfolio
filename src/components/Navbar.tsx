@@ -262,12 +262,12 @@ export function Navbar() {
               className={`text-md font-medium flex items-center gap-2 ${
                 active === "contact"
                   ? "border-b-2 border-[#ed501f] text-[#ed501f]"
-                  : "text-[#ed501f] hover:underline"
+                  : "text-[#ed501f] hover:text-[#ed501f]"
               }`}
               aria-label="Open contact menu"
             >
               Contact
-              <ChevronDown  size={18}/>
+              <ChevronDown size={18} />
             </button>
 
             {/* Dropdown */}
@@ -355,8 +355,8 @@ export function Navbar() {
         {/* RIGHT — Resume (download) */}
         <div className="flex justify-end">
           <a
-            href="/resume.pdf"
-            download="Khushal-Jain-Resume.pdf"
+            href="/Khushal_Jain_Resume.pdf"
+            download="Khushal_Jain_Resume.pdf"
             aria-label="Download resume"
           >
             <Button className="text-sm font-bold shadow-2xl shadow-gray-700">

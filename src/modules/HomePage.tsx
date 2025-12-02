@@ -4,7 +4,10 @@ import Image from "next/image";
 
 export default function HomePage() {
   return (
-    <section id="home" className="h-full bg-[#f7f6f2] bg-[url('/pattern.svg')] bg-center bg-no-repeat bg-cover flex flex-col items-center pt-28">
+    <section
+      id="home"
+      className="h-full bg-[#f7f6f2] bg-[url('/pattern.svg')] bg-center bg-no-repeat bg-cover flex flex-col items-center pt-28"
+    >
       <div className="flex flex-col items-center gap-6 px-4 w-full max-w-4xl h-[70vh] justify-center">
         <div className="shadow-xl rounded-xl overflow-hidden w-[190px] h-[190px]">
           <Image
@@ -21,21 +24,35 @@ export default function HomePage() {
             Hey!
           </span>
           <span className="text-sm text-gray-500 font-semibold">
-            I&apos;m <span className="font-semibold text-gray-800">Khushal Jain</span>
+            I&apos;m{" "}
+            <span className="font-semibold text-gray-800">Khushal Jain</span>
           </span>
         </div>
 
         <div className="flex flex-col items-center text-center w-full px-4 gap-4 mt-2">
           <h1 className="font-extrabold text-4xl md:text-6xl leading-tight text-gray-900">
-            <span className={`${dmSerifSans.className} font-light italic tracking-wide`}>I build {" "}</span><span className={`${storyScript.className} font-light italic tracking-wide`}>full-stack</span> <span className={`${dmSerifSans.className} font-extrabold`}>stuff</span>
+            <span
+              className={`${dmSerifSans.className} font-light italic tracking-wide`}
+            >
+              I build{" "}
+            </span>
+            <span
+              className={`${storyScript.className} font-light italic tracking-wide`}
+            >
+              full-stack
+            </span>{" "}
+            <span className={`${dmSerifSans.className} font-extrabold`}>
+              stuff
+            </span>
             <br />
-            <span className={`${dmSerifSans.className} font-extrabold`}>that actually works!</span>
+            <span className={`${dmSerifSans.className} font-extrabold`}>
+              that actually works!
+            </span>
           </h1>
 
           <p className="text-gray-600 text-base md:text-lg leading-relaxed max-w-xl">
             Code, bugs, and late-night coffee keep it all running.
-            <br />
-            I turn complex problems into clean, working solutions.
+            <br />I turn complex problems into clean, working solutions.
           </p>
         </div>
       </div>
@@ -46,4 +63,3 @@ export default function HomePage() {
     </section>
   );
 }
-

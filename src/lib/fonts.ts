@@ -1,5 +1,13 @@
 // lib/fonts.ts
-import { Geist, Geist_Mono, Bebas_Neue, Story_Script, Oswald, Inter, DM_Serif_Display } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Bebas_Neue,
+  Story_Script,
+  Oswald,
+  Inter,
+  DM_Serif_Display,
+} from "next/font/google";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,24 +26,24 @@ export const bebasNeue = Bebas_Neue({
 });
 
 export const storyScript = Story_Script({
-    weight: "400",
-    subsets: ["latin"],
-    variable: "--font-story-script",
-})
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-story-script",
+});
 
 export const oswald = Oswald({
-    weight: "400",
-    subsets: ["latin"],
-    variable: "--font-oswald",
-})
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-oswald",
+});
 
 export const inter = Inter({
-    subsets: ["latin"],
-    variable: "--font-inter",
-})
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export const dmSerifSans = DM_Serif_Display({
-    weight: "400",
-    subsets: ["latin"],
-    variable: "--font-dm-serif-display",
-})
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-dm-serif-display",
+});

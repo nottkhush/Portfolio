@@ -82,8 +82,9 @@ export default function Contact() {
           variants={itemVariants}
           className="text-gray-600 mb-6 max-w-2xl mx-auto"
         >
-          I&apos;m always open to interesting ideas, collaborations, or full-time
-          opportunities. If you&apos;ve got something in mind let&apos;s talk.
+          I&apos;m always open to interesting ideas, collaborations, or
+          full-time opportunities. If you&apos;ve got something in mind
+          let&apos;s talk.
         </motion.p>
 
         <motion.div

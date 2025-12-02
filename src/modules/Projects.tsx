@@ -1,7 +1,6 @@
 // modules/projects.tsx
 import Image from "next/image";
-import Link from "next/link";
-import { ChevronRight, GithubIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { dmSerifSans } from "@/lib/fonts";
 
 type Project = {
@@ -17,9 +16,33 @@ type Project = {
 const projects: Project[] = [
   {
     id: "p1",
+    title: "Meet AI – Real-Time AI Video Meetings",
+    description:
+      "A Next.js-based video meeting platform with AI agents that assist in calls, provide live transcription, summaries, and context-aware chat.",
+    tech: [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Stream Video",
+      "Stream Chat",
+      "OpenAI",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Better Auth",
+      "Ingest",
+    ],
+    image: "/meetAi.png",
+    github: "https://github.com/nottkhush/meet-application",
+    href: "https://meet-application-eight.vercel.app/",
+  },
+
+  {
+    id: "p2",
     title: "Synchronous Chatting App",
     description:
-      "A real-time chat application with group & personal messaging, emoji support, file sharing, and a fully responsive UI. Built for 200+ concurrent users.",
+      "A real-time chat app with group and private messaging, file sharing, emojis, and a responsive UI — built to handle 200+ concurrent users.",
     tech: [
       "React",
       "Node.js",
@@ -29,32 +52,22 @@ const projects: Project[] = [
       "Zustand",
       "Socket.IO",
       "JWT",
-      "Multer"
+      "Multer",
     ],
     image: "/synchat.png",
     github: "https://github.com/nottkhush/sync-chat-app",
   },
+
   {
-    id: "p2",
+    id: "p3",
     title: "Employee Management System",
     description:
-      "A MERN-based employee portal used by 150+ employees with automated onboarding, live request tracking, and secure role-based authentication.",
-    tech: ["React", "Node.js", "Express", "MongoDB"],
+      "A simple React UI project using localStorage to manage employee data. Built to practice component structure, state management, and frontend fundamentals.",
+    tech: ["React", "JavaScript", "HTML", "CSS", "localStorage"],
     image: "/ems.png",
     github: "https://github.com/nottkhush/Employee-management-system",
   },
-  // Optional: keep or remove your previous sample projects
-  // {
-  //   id: "p3",
-  //   title: "Taskly",
-  //   description:
-  //     "A tiny, fast todo app with offline support and keyboard-first UX.",
-  //   tech: ["Next.js", "IndexedDB", "Tailwind"],
-  //   image: "/placeholder-project.png",
-  //   github: "https://github.com/nottkhush/sync-chat-app",
-  // },
 ];
-
 
 function isExternal(url?: string) {
   if (!url) return false;
@@ -71,17 +84,16 @@ function isExternal(url?: string) {
 function ProjectCardInner({ p }: { p: Project }) {
   return (
     <>
-      <figure className="h-44 bg-gray-100 flex p-5 items-center justify-center overflow-hidden">
+      <figure className="h-44 bg-gray-200 p-3 flex items-center justify-center overflow-hidden">
         {p.image ? (
           <Image
             src={p.image}
             alt={p.title + " screenshot"}
             width={800}
             height={420}
-            className="object-cover rounded-md w-full h-full"
+            className="object-cover border border-gray-200 rounded-md w-full h-full"
             loading="lazy"
             decoding="async"
-            
           />
         ) : (
           <div className="text-gray-400">{p.title}</div>
@@ -127,7 +139,12 @@ function ProjectCardInner({ p }: { p: Project }) {
                 className="text-sm text-gray-700 hover:underline"
                 aria-label={`Open GitHub repo for ${p.title}`}
               >
-                <Image src={"/github.svg"} alt="GitHub" width={30} height={30} />
+                <Image
+                  src={"/github.svg"}
+                  alt="GitHub"
+                  width={30}
+                  height={30}
+                />
               </a>
             )}
           </div>
@@ -142,37 +159,10 @@ function ProjectCardInner({ p }: { p: Project }) {
 }
 
 function ProjectCard({ p }: { p: Project }) {
-  // Wrapper element classes for hover/focus effects
   const wrapperClasses =
     "block bg-white rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 focus-within:-translate-y-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300";
 
-  // If href exists and is internal (hash or /path), use next/link for SPA nav.
-  // If external, use anchor with target=_blank. If no href, render a non-clickable card.
-  if (p.href) {
-    if (isExternal(p.href)) {
-      // external link open in new tab
-      return (
-        <a
-          href={p.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={wrapperClasses}
-          aria-label={`Open project ${p.title} (external)`}
-        >
-          <ProjectCardInner p={p} />
-        </a>
-      );
-    } else {
-      // internal link (including hashes), use next/link
-      return (
-        <Link href={p.href} className={wrapperClasses} aria-label={`Open project ${p.title}`}>
-          <ProjectCardInner p={p} />
-        </Link>
-      );
-    }
-  }
-
-  // fallback: non-clickable card
+  // Always use a non-anchor wrapper to avoid nested <a> tags
   return (
     <article className={wrapperClasses} aria-label={p.title}>
       <ProjectCardInner p={p} />
@@ -187,8 +177,10 @@ export default function Projects() {
       className="h-full min-h-0 flex flex-col items-center justify-center bg-[#f7f6f2] px-6"
     >
       <div className="max-w-6xl w-full flex flex-col items-center">
-        <h1 className={`${dmSerifSans.className} text-6xl font-extrabold text-gray-900 mb-10 text-center`}>
-          Some Things I’ve Built
+        <h1
+          className={`${dmSerifSans.className} text-6xl font-extrabold text-gray-900 mb-10 text-center`}
+        >
+          Some Things I&apos;ve Built
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">

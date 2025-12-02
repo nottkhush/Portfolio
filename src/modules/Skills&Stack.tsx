@@ -24,7 +24,7 @@ const rows: Row[] = [
       "Tailwind CSS",
       "ShadCN",
       "GSAP",
-      "Three.js"
+      "Three.js",
     ],
     color: "violet",
   },
@@ -36,18 +36,13 @@ const rows: Row[] = [
       "Socket.IO",
       "JWT",
       "Better-auth",
-      "REST APIs"
+      "REST APIs",
     ],
     color: "blue",
   },
   {
     category: "Tools & Libraries",
-    items: [
-      "Git",
-      "GitHub",
-      "Postman",
-      "Browser DevTools"
-    ],
+    items: ["Git", "GitHub", "Postman", "Browser DevTools"],
     color: "red",
   },
   {
@@ -57,12 +52,18 @@ const rows: Row[] = [
   },
 ];
 
-
 export default function SkillsAndStack(): JSX.Element {
   return (
-    <section id="skills" className="h-full min-h-0 flex items-center justify-center bg-[#f7f6f2] px-6">
+    <section
+      id="skills"
+      className="h-full min-h-0 flex items-center justify-center bg-[#f7f6f2] px-6"
+    >
       <div className="w-full max-w-5xl">
-        <h2 className={`${dmSerifSans.className} text-center text-6xl font-extrabold text-gray-900 mb-8`}>My Skills & Stack</h2>
+        <h2
+          className={`${dmSerifSans.className} text-center text-6xl font-extrabold text-gray-900 mb-8`}
+        >
+          My Skills & Stack
+        </h2>
 
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
           {/* Header with light gray rounded rectangles */}
@@ -85,7 +86,9 @@ export default function SkillsAndStack(): JSX.Element {
             <div
               key={r.category}
               className={`grid grid-cols-1 md:grid-cols-3 py-6 px-6 gap-4 items-start 
-                border-b border-dashed border-gray-300 ${idx === rows.length - 1 ? "border-b-0" : ""}`}
+                border-b border-dashed border-gray-300 ${
+                  idx === rows.length - 1 ? "border-b-0" : ""
+                }`}
             >
               {/* Category (left column on desktop, top on mobile) */}
               <div className="font-semibold text-gray-700 text-lg flex items-center md:items-start">
@@ -110,7 +113,8 @@ export default function SkillsAndStack(): JSX.Element {
 
 /* ---------- Badge component with color variants (type-safe) ---------- */
 function Badge({ label, color = "pink" }: { label: string; color?: Colors }) {
-  const base = "text-sm px-3 py-1 rounded-md font-medium shadow-sm whitespace-nowrap";
+  const base =
+    "text-sm px-3 py-1 rounded-md font-medium shadow-sm whitespace-nowrap";
 
   const variants: Record<Colors, string> = {
     pink: "bg-pink-50 text-pink-700",

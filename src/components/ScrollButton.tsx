@@ -3,11 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-export default function ScrollButton({
-  href = "#about",
-}: {
-  href?: string;
-}) {
+export default function ScrollButton({ href = "#about" }: { href?: string }) {
   return (
     <motion.a
       href={href}

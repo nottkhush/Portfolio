@@ -12,7 +12,7 @@ type Row = {
 const rows: Row[] = [
   {
     category: "Languages",
-    items: ["C++", "JavaScript", "SQL", "HTML", "CSS"],
+    items: ["JavaScript", "TypeScript", "C++", "HTML", "CSS"],
     color: "pink",
   },
   {
@@ -20,11 +20,10 @@ const rows: Row[] = [
     items: [
       "React",
       "Next.js",
-      "Zustand",
       "Tailwind CSS",
-      "ShadCN",
+      "Shadcn",
+      "Zustand",
       "GSAP",
-      "Three.js",
     ],
     color: "violet",
   },
@@ -33,22 +32,31 @@ const rows: Row[] = [
     items: [
       "Node.js",
       "Express.js",
+      "REST APIs",
       "Socket.IO",
       "JWT",
-      "Better-auth",
-      "REST APIs",
+      "Better-Auth",
+      "Multer",
     ],
     color: "blue",
   },
   {
-    category: "Tools & Libraries",
-    items: ["Git", "GitHub", "Postman", "Browser DevTools"],
-    color: "red",
+    category: "Databases & ORM",
+    items: ["MongoDB", "PostgreSQL", "MySQL", "Drizzle ORM"],
+    color: "green",
   },
   {
-    category: "Databases",
-    items: ["MongoDB", "PostgreSQL", "MySQL"],
-    color: "green",
+    category: "Tools & Platforms",
+    items: [
+      "Git",
+      "GitHub",
+      "Postman",
+      "Vercel",
+      "Inngest",
+      "OpenAI API",
+      "Stream SDK",
+    ],
+    color: "red",
   },
 ];
 
@@ -56,9 +64,7 @@ export default function SkillsAndStack(): JSX.Element {
   return (
     <section
       id="skills"
-      // removed h-full, added scroll-mt to avoid navbar overlap,
-      // and balanced vertical padding
-      className="relative bg-[#f7f6f2] px-4 sm:px-6  sm:py-20 md:py-24 flex justify-center scroll-mt-24 md:scroll-mt-32"
+      className="relative bg-[#f7f6f2] px-4 sm:px-6 sm:py-20 md:py-24 flex justify-center scroll-mt-24 md:scroll-mt-32"
     >
       <div className="w-full max-w-5xl">
         <h2
@@ -92,7 +98,6 @@ export default function SkillsAndStack(): JSX.Element {
               <div className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-4 py-5 px-4 sm:px-6">
                 {/* Category */}
                 <div className="flex flex-col gap-1">
-                  {/* Mobile label */}
                   <span className="md:hidden text-xs font-semibold uppercase tracking-wide text-gray-400">
                     Category
                   </span>
@@ -104,7 +109,6 @@ export default function SkillsAndStack(): JSX.Element {
 
                 {/* Items */}
                 <div className="md:col-span-2 flex flex-col gap-2">
-                  {/* Mobile label */}
                   <span className="md:hidden text-xs font-semibold uppercase tracking-wide text-gray-400">
                     Tools & Tech
                   </span>
@@ -124,8 +128,14 @@ export default function SkillsAndStack(): JSX.Element {
   );
 }
 
-/* ---------- Badge component with color variants (type-safe) ---------- */
-function Badge({ label, color = "pink" }: { label: string; color?: Colors }) {
+/* ---------- Badge component ---------- */
+function Badge({
+  label,
+  color = "pink",
+}: {
+  label: string;
+  color?: Colors;
+}) {
   const base =
     "text-xs sm:text-sm px-2.5 sm:px-3 py-1 rounded-md font-medium shadow-sm whitespace-nowrap";
 

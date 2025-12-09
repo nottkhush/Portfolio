@@ -31,7 +31,7 @@ const experiences: ExperienceItem[] = [
     company: {
       name: "Printonia",
       location: "Remote",
-      logo: "/Printonia.svg",
+      logo: "/PrintoniaLC.svg",
     },
   },
 ];

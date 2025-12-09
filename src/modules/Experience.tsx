@@ -20,7 +20,7 @@ type ExperienceItem = {
 const experiences: ExperienceItem[] = [
   {
     id: "exp-printonia",
-    role: "Junior Full-Stack Developer",
+    role: "Full-Stack Developer Intern (Remote)",
     period: "Jan 2025 – May 2025",
     points: [
       "Developed and maintained product and sales websites using React, Zustand, Tailwind CSS and REST APIs, ensuring timely updates and site reliability.",
@@ -29,28 +29,11 @@ const experiences: ExperienceItem[] = [
       "Used browser dev tools, Git and CI-friendly workflows to deliver stable releases and rapid fixes.",
     ],
     company: {
-      name: "Printonia LLC",
+      name: "Printonia",
       location: "Remote",
-      logo: "/PrintoniaLC.svg", // optional — replace with a real asset or remove
+      logo: "/Printonia.svg",
     },
   },
-  // optional: keep OctopusX or other prior work if you'd like them shown alongside the internship
-  // {
-  //   id: "exp-octopusx",
-  //   role: "Software Engineer",
-  //   period: "Apr 2023 – Apr 2025",
-  //   points: [
-  //     "Built and maintained backend systems and project architecture using a monorepo for multiple apps.",
-  //     "Led front and back-end teams; handled task distribution, code reviews, and key technical decisions.",
-  //     "Designed ERDs, planned flows, and built scalable database schemas for performance & reliability.",
-  //     "Managed 20+ projects in one codebase, ensuring smooth collaboration & consistent development.",
-  //   ],
-  //   company: {
-  //     name: "OctopusX",
-  //     location: "Chattogram, Bangladesh",
-  //     logo: "/octopusx.png",
-  //   },
-  // },
 ];
 
 export default function Experience() {
@@ -58,6 +41,7 @@ export default function Experience() {
     if (e) e.preventDefault();
     const container = document.getElementById("scroll-container");
     const target = document.getElementById("contact");
+
     if (container && target) {
       const containerRect = container.getBoundingClientRect();
       const targetRect = target.getBoundingClientRect();
@@ -66,7 +50,6 @@ export default function Experience() {
         behavior: "smooth",
       });
     } else {
-      // Next.js-friendly: update hash without full navigation
       try {
         history.replaceState(null, "", "#contact");
       } catch {
@@ -78,34 +61,33 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="bg-white min-h-screen px-6 py-20 flex flex-col"
+      className="bg-white px-6 py-16 md:py-35 h-full flex flex-col"
       aria-labelledby="experience-heading"
     >
-      <div className="max-w-4xl mx-auto flex flex-col flex-1">
+      <div className="max-w-4xl mx-auto w-full">
         <h2
           id="experience-heading"
-          className={`${dmSerifSans.className} text-4xl md:text-5xl font-extrabold text-gray-900 mt-20 text-center`}
+          className={`${dmSerifSans.className} text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 text-center mb-10 md:mb-12`}
         >
           Where I&apos;ve Worked
         </h2>
 
-        <div className="flex-1 flex items-center justify-center relative mt-8">
+        <div className="relative">
           {/* vertical line (desktop only) */}
-          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-gray-200" />
+          <div className="hidden md:block absolute left-4 top-0 bottom-0 w-px bg-gray-200" />
 
-          {/* timeline dot */}
-          <div className="hidden md:flex absolute left-0 items-center h-full">
-            <div className="w-4 h-4 bg-orange-500 rounded-full ring-4 ring-white shadow-md translate-x-[-50%]" />
+          {/* timeline dot (desktop only) */}
+          <div className="hidden md:flex absolute left-4 top-4 -translate-x-1/2">
+            <div className="w-4 h-4 bg-orange-500 rounded-full ring-4 ring-white shadow-md" />
           </div>
 
-          {/* the card */}
-          <ol className="w-full space-y-6">
+          <ol className="space-y-6 md:space-y-8">
             {experiences.map((exp) => (
-              <li key={exp.id} className="md:pl-20">
-                <article className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition">
-                  <header className="flex items-start justify-between">
+              <li key={exp.id} className="md:pl-12">
+                <article className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 md:p-7 hover:shadow-md transition">
+                  <header className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                         {exp.role}
                       </h3>
                       <p className="text-sm text-gray-500 mt-1">
@@ -113,12 +95,12 @@ export default function Experience() {
                       </p>
                     </div>
 
-                    <span className="inline-block text-xs font-medium bg-gray-100 text-gray-700 px-3 py-1 rounded-full whitespace-nowrap">
+                    <span className="inline-block self-start text-xs font-medium bg-gray-100 text-gray-700 px-3 py-1 rounded-full whitespace-nowrap">
                       {exp.period}
                     </span>
                   </header>
 
-                  <ul className="list-disc pl-5 mt-4 space-y-3 text-gray-700">
+                  <ul className="list-disc pl-4 sm:pl-5 mt-4 space-y-2.5 text-gray-700 text-sm sm:text-base">
                     {exp.points.map((p, i) => (
                       <li key={i} className="leading-relaxed">
                         {p}
@@ -126,7 +108,7 @@ export default function Experience() {
                     ))}
                   </ul>
 
-                  <footer className="mt-6 flex items-center justify-between">
+                  <footer className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-md bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100">
                         {exp.company.logo ? (

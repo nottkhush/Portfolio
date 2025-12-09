@@ -72,9 +72,7 @@ const projects: Project[] = [
 function isExternal(url?: string) {
   if (!url) return false;
   try {
-    // treat hashes and relative paths as internal
     if (url.startsWith("#") || url.startsWith("/")) return false;
-    // if url starts with protocol or // treat as external
     return /^(https?:)?\/\//.test(url) || url.includes("://");
   } catch {
     return false;
@@ -84,7 +82,7 @@ function isExternal(url?: string) {
 function ProjectCardInner({ p }: { p: Project }) {
   return (
     <>
-      <figure className="h-44 bg-gray-200 p-3 flex items-center justify-center overflow-hidden">
+      <figure className="h-40 sm:h-44 md:h-48 bg-gray-200 p-3 flex items-center justify-center overflow-hidden">
         {p.image ? (
           <Image
             src={p.image}
@@ -96,20 +94,24 @@ function ProjectCardInner({ p }: { p: Project }) {
             decoding="async"
           />
         ) : (
-          <div className="text-gray-400">{p.title}</div>
+          <div className="text-gray-400 text-sm sm:text-base">{p.title}</div>
         )}
       </figure>
 
-      <div className="p-5">
-        <h3 className="text-lg font-semibold text-gray-900">{p.title}</h3>
-        <p className="text-sm text-gray-600 mt-2">{p.description}</p>
+      <div className="p-4 sm:p-5 flex flex-col h-full">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+          {p.title}
+        </h3>
+        <p className="text-xs sm:text-sm text-gray-600 mt-2">
+          {p.description}
+        </p>
 
         {p.tech && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
             {p.tech.map((t) => (
               <span
                 key={t}
-                className="text-xs bg-gray-100 px-2 py-1 rounded-md text-gray-700"
+                className="text-[10px] sm:text-xs bg-gray-100 px-2 py-1 rounded-md text-gray-700"
               >
                 {t}
               </span>
@@ -124,7 +126,7 @@ function ProjectCardInner({ p }: { p: Project }) {
                 href={p.href}
                 target={isExternal(p.href) ? "_blank" : undefined}
                 rel={isExternal(p.href) ? "noopener noreferrer" : undefined}
-                className="text-sm font-medium text-[#ed501f] hover:underline"
+                className="text-xs sm:text-sm font-medium text-[#ed501f] hover:underline"
                 aria-label={`Open live site for ${p.title}`}
               >
                 Live
@@ -136,21 +138,22 @@ function ProjectCardInner({ p }: { p: Project }) {
                 href={p.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-gray-700 hover:underline"
+                className="text-xs sm:text-sm text-gray-700 hover:underline"
                 aria-label={`Open GitHub repo for ${p.title}`}
               >
                 <Image
                   src={"/github.svg"}
                   alt="GitHub"
-                  width={30}
-                  height={30}
+                  width={24}
+                  height={24}
+                  className="inline-block"
                 />
               </a>
             )}
           </div>
 
           <span className="text-gray-400" aria-hidden>
-            <ChevronRight />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </span>
         </div>
       </div>
@@ -160,9 +163,8 @@ function ProjectCardInner({ p }: { p: Project }) {
 
 function ProjectCard({ p }: { p: Project }) {
   const wrapperClasses =
-    "block bg-white rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 focus-within:-translate-y-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300";
+    "block bg-white rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 focus-within:-translate-y-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300 h-full";
 
-  // Always use a non-anchor wrapper to avoid nested <a> tags
   return (
     <article className={wrapperClasses} aria-label={p.title}>
       <ProjectCardInner p={p} />
@@ -174,16 +176,16 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="h-full min-h-0 flex flex-col items-center justify-center bg-[#f7f6f2] px-6"
+      className="bg-[#f7f6f2] px-4 sm:px-6 py-12 sm:py-16 md:py-20"
     >
-      <div className="max-w-6xl w-full flex flex-col items-center">
+      <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
         <h1
-          className={`${dmSerifSans.className} text-6xl font-extrabold text-gray-900 mb-10 text-center`}
+          className={`${dmSerifSans.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 md:mb-10 text-center`}
         >
           Some Things I&apos;ve Built
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 w-full">
           {projects.map((p) => (
             <ProjectCard key={p.id} p={p} />
           ))}

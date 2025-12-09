@@ -6,42 +6,46 @@ import Experience from "@/modules/Experience";
 import Projects from "@/modules/Projects";
 import Contact from "@/modules/Contact";
 import { ScrollSmoothProvider } from "@/wrappers/SmoothScroller";
+import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <>
-      <ScrollSmoothProvider>
-        <div
-          id="scroll-container"
-          className="h-screen w-full overflow-y-auto snap-y snap-mandatory scroll-smooth scrollbar-hide snap-scroll"
-          role="region"
-          aria-label="Main content"
-        >
-          <div className="snap-start h-screen">
-            <HomePage />
-          </div>
-
-          <div className="snap-start h-screen">
-            <AboutPage />
-          </div>
-
-          <div className="snap-start h-screen">
-            <SkillsAndStack />
-          </div>
-
-          <div className="snap-start h-screen">
-            <Experience />
-          </div>
-
-          <div className="snap-start h-screen">
-            <Projects />
-          </div>
-
-          <div className="snap-start h-screen">
-            <Contact />
-          </div>
+    <ScrollSmoothProvider>
+      <Navbar />
+      <main
+        id="scroll-container"
+        className={`
+          h-screen w-full overflow-y-auto scrollbar-hide
+          md:snap-y md:snap-mandatory md:snap-scroll md:scroll-smooth
+        `}
+        role="region"
+        aria-label="Main content"
+      >
+        {/* Normal stacked layout on mobile, full-screen snap on md+ */}
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <HomePage />
         </div>
-      </ScrollSmoothProvider>
-    </>
+
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <AboutPage />
+        </div>
+
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <SkillsAndStack />
+        </div>
+
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <Experience />
+        </div>
+
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <Projects />
+        </div>
+
+        <div className="min-h-screen md:h-screen md:snap-start">
+          <Contact />
+        </div>
+      </main>
+    </ScrollSmoothProvider>
   );
 }

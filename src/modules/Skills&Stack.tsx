@@ -56,18 +56,20 @@ export default function SkillsAndStack(): JSX.Element {
   return (
     <section
       id="skills"
-      className="h-full min-h-0 flex items-center justify-center bg-[#f7f6f2] px-6"
+      // removed h-full, added scroll-mt to avoid navbar overlap,
+      // and balanced vertical padding
+      className="relative bg-[#f7f6f2] px-4 sm:px-6  sm:py-20 md:py-24 flex justify-center scroll-mt-24 md:scroll-mt-32"
     >
       <div className="w-full max-w-5xl">
         <h2
-          className={`${dmSerifSans.className} text-center text-6xl font-extrabold text-gray-900 mb-8`}
+          className={`${dmSerifSans.className} text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8 sm:mb-10`}
         >
           My Skills & Stack
         </h2>
 
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-          {/* Header with light gray rounded rectangles */}
-          <div className="grid grid-cols-3 bg-white border-b border-gray-200">
+          {/* Desktop header */}
+          <div className="hidden md:grid grid-cols-3 bg-white border-b border-gray-200">
             <div className="py-4 pl-6">
               <div className="inline-block bg-gray-100 border border-gray-200 rounded-md px-4 py-2 font-semibold text-gray-700">
                 Category
@@ -82,25 +84,36 @@ export default function SkillsAndStack(): JSX.Element {
           </div>
 
           {/* Rows */}
-          {rows.map((r, idx) => (
+          {rows.map((r) => (
             <div
               key={r.category}
-              className={`grid grid-cols-1 md:grid-cols-3 py-6 px-6 gap-4 items-start 
-                border-b border-dashed border-gray-300 ${
-                  idx === rows.length - 1 ? "border-b-0" : ""
-                }`}
+              className="border-b border-dashed border-gray-200 last:border-b-0"
             >
-              {/* Category (left column on desktop, top on mobile) */}
-              <div className="font-semibold text-gray-700 text-lg flex items-center md:items-start">
-                {r.category}
-              </div>
+              <div className="flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-4 py-5 px-4 sm:px-6">
+                {/* Category */}
+                <div className="flex flex-col gap-1">
+                  {/* Mobile label */}
+                  <span className="md:hidden text-xs font-semibold uppercase tracking-wide text-gray-400">
+                    Category
+                  </span>
 
-              {/* Items (spans 2 cols on desktop) */}
-              <div className="md:col-span-2">
-                <div className="flex flex-wrap gap-3">
-                  {r.items.map((it) => (
-                    <Badge key={it} label={it} color={r.color ?? "pink"} />
-                  ))}
+                  <span className="font-semibold text-base sm:text-lg text-gray-800">
+                    {r.category}
+                  </span>
+                </div>
+
+                {/* Items */}
+                <div className="md:col-span-2 flex flex-col gap-2">
+                  {/* Mobile label */}
+                  <span className="md:hidden text-xs font-semibold uppercase tracking-wide text-gray-400">
+                    Tools & Tech
+                  </span>
+
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    {r.items.map((it) => (
+                      <Badge key={it} label={it} color={r.color ?? "pink"} />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,7 +127,7 @@ export default function SkillsAndStack(): JSX.Element {
 /* ---------- Badge component with color variants (type-safe) ---------- */
 function Badge({ label, color = "pink" }: { label: string; color?: Colors }) {
   const base =
-    "text-sm px-3 py-1 rounded-md font-medium shadow-sm whitespace-nowrap";
+    "text-xs sm:text-sm px-2.5 sm:px-3 py-1 rounded-md font-medium shadow-sm whitespace-nowrap";
 
   const variants: Record<Colors, string> = {
     pink: "bg-pink-50 text-pink-700",

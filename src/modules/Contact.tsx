@@ -52,24 +52,25 @@ const itemVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.45,
-      // use a cubic-bezier array (typed) instead of a string
       ease: [0.22, 1, 0.36, 1],
     },
   },
 };
 
 export default function Contact() {
+  const year = new Date().getFullYear();
+
   return (
     <section
       id="contact"
-      className="h-screen flex items-center justify-center bg-white px-6 py-20"
+      className="bg-white px-6 py-24 md:py-20 min-h-screen flex justify-center items-start md:items-center scroll-mt-28 md:scroll-mt-32"
     >
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
-        className="w-full max-w-3xl bg-white rounded-2xl shadow-lg border border-gray-200 p-8 text-center"
+        className="w-full max-w-3xl bg-white rounded-2xl shadow-lg border border-gray-200 p-6 md:p-8 text-center"
       >
         <motion.h2
           variants={itemVariants}
@@ -80,10 +81,10 @@ export default function Contact() {
 
         <motion.p
           variants={itemVariants}
-          className="text-gray-600 mb-6 max-w-2xl mx-auto"
+          className="text-gray-600 mb-6 max-w-2xl mx-auto text-sm md:text-base"
         >
           I&apos;m always open to interesting ideas, collaborations, or
-          full-time opportunities. If you&apos;ve got something in mind
+          full-time opportunities. If you&apos;ve got something in mind,
           let&apos;s talk.
         </motion.p>
 
@@ -141,8 +142,7 @@ export default function Contact() {
           variants={itemVariants}
           className="text-xs text-gray-400 mt-6"
         >
-          Designed & built by <strong>Khushal Jain</strong>. ©{" "}
-          {new Date().getFullYear()}
+          Designed & built by <strong>Khushal Jain</strong>. © {year}
         </motion.p>
       </motion.div>
     </section>

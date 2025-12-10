@@ -120,8 +120,8 @@ export default function Contact() {
           className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-sm text-gray-600"
         >
           <a
-            href="/resume.pdf"
-            download="Khushal-Jain-Resume.pdf"
+            href="/Khushal_Jain_Resume.pdf"
+            download="Khushal_Jain_Resume.pdf"
             className="inline-flex items-center gap-2"
             aria-label="Download resume"
           >

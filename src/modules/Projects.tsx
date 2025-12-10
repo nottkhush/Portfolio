@@ -1,4 +1,6 @@
-// modules/projects.tsx
+// modules/Projects.tsx
+"use client";
+
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { dmSerifSans } from "@/lib/fonts";
@@ -42,7 +44,7 @@ const projects: Project[] = [
     id: "p2",
     title: "Synchronous Chatting App",
     description:
-      "A real-time chat app with group and private messaging, file sharing, emojis, and a responsive UI — built to handle 200+ concurrent users.",
+      "A real-time chat app with group and private messaging, file sharing, emojis, and a responsive UI built to handle 200+ concurrent users.",
     tech: [
       "React",
       "Node.js",
@@ -54,7 +56,7 @@ const projects: Project[] = [
       "JWT",
       "Multer",
     ],
-    image: "/synchat.png",
+    image: "/synchat1.png",
     github: "https://github.com/nottkhush/sync-chat-app",
   },
 
@@ -84,15 +86,18 @@ function ProjectCardInner({ p }: { p: Project }) {
     <>
       <figure className="h-40 sm:h-44 md:h-48 bg-gray-200 p-3 flex items-center justify-center overflow-hidden">
         {p.image ? (
-          <Image
-            src={p.image}
-            alt={p.title + " screenshot"}
-            width={800}
-            height={420}
-            className="object-cover border border-gray-200 rounded-md w-full h-full"
-            loading="lazy"
-            decoding="async"
-          />
+          <div className="m-3 p-3">
+            <Image
+              src={p.image}
+              alt={p.title + " screenshot"}
+              width={800}
+              height={420}
+              className="object-cover border border-gray-200 rounded-md w-full h-full"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          
         ) : (
           <div className="text-gray-400 text-sm sm:text-base">{p.title}</div>
         )}
@@ -102,9 +107,7 @@ function ProjectCardInner({ p }: { p: Project }) {
         <h3 className="text-base sm:text-lg font-semibold text-gray-900">
           {p.title}
         </h3>
-        <p className="text-xs sm:text-sm text-gray-600 mt-2">
-          {p.description}
-        </p>
+        <p className="text-xs sm:text-sm text-gray-600 mt-2">{p.description}</p>
 
         {p.tech && (
           <div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
@@ -126,8 +129,12 @@ function ProjectCardInner({ p }: { p: Project }) {
                 href={p.href}
                 target={isExternal(p.href) ? "_blank" : undefined}
                 rel={isExternal(p.href) ? "noopener noreferrer" : undefined}
-                className="text-xs sm:text-sm font-medium text-[#ed501f] hover:underline"
                 aria-label={`Open live site for ${p.title}`}
+                className="inline-block font-bold bg-red-600 text-white text-xs sm:text-sm px-3 py-1.5 rounded-md hover:bg-red-700 transition"
+                onClick={(e) => {
+                  // prevent triggering the card's onClick
+                  e.stopPropagation();
+                }}
               >
                 Live
               </a>
@@ -140,12 +147,16 @@ function ProjectCardInner({ p }: { p: Project }) {
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm text-gray-700 hover:underline"
                 aria-label={`Open GitHub repo for ${p.title}`}
+                onClick={(e) => {
+                  // prevent triggering the card's onClick
+                  e.stopPropagation();
+                }}
               >
                 <Image
                   src={"/github.svg"}
                   alt="GitHub"
-                  width={24}
-                  height={24}
+                  width={32}
+                  height={32}
                   className="inline-block"
                 />
               </a>
@@ -163,10 +174,30 @@ function ProjectCardInner({ p }: { p: Project }) {
 
 function ProjectCard({ p }: { p: Project }) {
   const wrapperClasses =
-    "block bg-white rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 focus-within:-translate-y-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300 h-full";
+    "cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-1 focus-within:-translate-y-1 overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300 h-full";
+
+  const handleCardClick = () => {
+    if (p.github) {
+      window.open(p.github, "_blank", "noopener,noreferrer");
+    } else if (p.href) {
+      window.open(p.href, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
-    <article className={wrapperClasses} aria-label={p.title}>
+    <article
+      className={wrapperClasses}
+      aria-label={p.title}
+      role="button"
+      tabIndex={0}
+      onClick={handleCardClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+    >
       <ProjectCardInner p={p} />
     </article>
   );

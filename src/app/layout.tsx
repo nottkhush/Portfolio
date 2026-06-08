@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
-import { geistSans, geistMono, bebasNeue } from "@/lib/fonts";
+import { geistSans, geistMono, bebasNeue, dmSerifSans, storyScript } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   title: "Khushal Jain | Full Stack Developer",
@@ -49,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} antialiased bg-[#f7f6f2]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${dmSerifSans.variable} ${storyScript.variable} antialiased bg-[#f7f6f2]`}
       >
         {children}
       </body>

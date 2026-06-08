@@ -12,49 +12,42 @@ type Row = {
 const rows: Row[] = [
   {
     category: "Languages",
-    items: ["JavaScript", "TypeScript", "C++", "HTML", "CSS"],
+    items: ["TypeScript", "JavaScript", "Python", "SQL", "C++"],
     color: "pink",
   },
   {
-    category: "Frontend",
+    category: "Frameworks & Libraries",
     items: [
-      "React",
       "Next.js",
+      "React",
+      "Node.js",
+      "Express",
       "Tailwind CSS",
-      "Shadcn",
+      "Shadcn UI",
       "Zustand",
-      "GSAP",
+      "Drizzle ORM",
+      "Socket.IO",
+      "JWT",
     ],
     color: "violet",
   },
   {
-    category: "Backend",
-    items: [
-      "Node.js",
-      "Express.js",
-      "REST APIs",
-      "Socket.IO",
-      "JWT",
-      "Better-Auth",
-      "Multer",
-    ],
-    color: "blue",
-  },
-  {
-    category: "Databases & ORM",
-    items: ["MongoDB", "PostgreSQL", "MySQL", "Drizzle ORM"],
+    category: "Databases",
+    items: ["PostgreSQL", "MongoDB", "MySQL"],
     color: "green",
   },
   {
-    category: "Tools & Platforms",
+    category: "AI & Tools",
     items: [
+      "OpenAI API",
+      "Anthropic API",
+      "Playwright",
+      "Chrome Ext. MV3",
       "Git",
       "GitHub",
-      "Postman",
       "Vercel",
-      "Inngest",
-      "OpenAI API",
       "Stream SDK",
+      "Inngest",
     ],
     color: "red",
   },
@@ -64,7 +57,7 @@ export default function SkillsAndStack(): JSX.Element {
   return (
     <section
       id="skills"
-      className="relative bg-[#f7f6f2] px-4 sm:px-6 sm:py-20 md:py-24 flex justify-center scroll-mt-24 md:scroll-mt-32"
+      className="relative bg-[#f7f6f2] px-4 sm:px-6 py-12 sm:py-20 md:py-24 flex justify-center scroll-mt-24 md:scroll-mt-32"
     >
       <div className="w-full max-w-5xl">
         <h2

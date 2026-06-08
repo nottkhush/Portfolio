@@ -34,7 +34,7 @@ export default function Home() {
           <SkillsAndStack />
         </div>
 
-        <div className="min-h-screen md:h-screen md:snap-start">
+        <div className="md:snap-start">
           <Experience />
         </div>
 

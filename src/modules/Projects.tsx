@@ -4,6 +4,7 @@
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { dmSerifSans } from "@/lib/fonts";
+import { motion, Variants } from "framer-motion";
 
 type Project = {
   id: string;
@@ -11,8 +12,8 @@ type Project = {
   description: string;
   tech?: string[];
   image?: string;
-  href?: string; // Live link (can be internal or external)
-  github?: string; // GitHub repo (external)
+  href?: string;
+  github?: string;
 };
 
 const projects: Project[] = [
@@ -33,7 +34,7 @@ const projects: Project[] = [
       "Drizzle ORM",
       "PostgreSQL",
       "Better Auth",
-      "Ingest",
+      "Inngest",
     ],
     image: "/meetAi.png",
     github: "https://github.com/nottkhush/meet-application",
@@ -71,6 +72,20 @@ const projects: Project[] = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
 function isExternal(url?: string) {
   if (!url) return false;
   try {
@@ -97,7 +112,6 @@ function ProjectCardInner({ p }: { p: Project }) {
               decoding="async"
             />
           </div>
-          
         ) : (
           <div className="text-gray-400 text-sm sm:text-base">{p.title}</div>
         )}
@@ -131,10 +145,7 @@ function ProjectCardInner({ p }: { p: Project }) {
                 rel={isExternal(p.href) ? "noopener noreferrer" : undefined}
                 aria-label={`Open live site for ${p.title}`}
                 className="inline-block font-bold bg-red-600 text-white text-xs sm:text-sm px-3 py-1.5 rounded-md hover:bg-red-700 transition"
-                onClick={(e) => {
-                  // prevent triggering the card's onClick
-                  e.stopPropagation();
-                }}
+                onClick={(e) => e.stopPropagation()}
               >
                 Live
               </a>
@@ -147,10 +158,7 @@ function ProjectCardInner({ p }: { p: Project }) {
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm text-gray-700 hover:underline"
                 aria-label={`Open GitHub repo for ${p.title}`}
-                onClick={(e) => {
-                  // prevent triggering the card's onClick
-                  e.stopPropagation();
-                }}
+                onClick={(e) => e.stopPropagation()}
               >
                 <Image
                   src={"/github.svg"}
@@ -209,19 +217,28 @@ export default function Projects() {
       id="projects"
       className="bg-[#f7f6f2] px-4 sm:px-6 py-12 sm:py-16 md:py-20"
     >
-      <div className="max-w-6xl w-full mx-auto flex flex-col items-center">
-        <h1
+      <motion.div
+        className="max-w-6xl w-full mx-auto flex flex-col items-center"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={containerVariants}
+      >
+        <motion.h1
+          variants={itemVariants}
           className={`${dmSerifSans.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 md:mb-10 text-center`}
         >
           Some Things I&apos;ve Built
-        </h1>
+        </motion.h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 w-full">
           {projects.map((p) => (
-            <ProjectCard key={p.id} p={p} />
+            <motion.div key={p.id} variants={itemVariants} className="h-full">
+              <ProjectCard p={p} />
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

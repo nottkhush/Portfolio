@@ -166,6 +166,12 @@ export function Navbar() {
         : "border-transparent hover:border-gray-200 text-gray-900"
     }`;
 
+  const closeDropdownWithContact = () => {
+    setContactOpen(false);
+    setActive("contact");
+    activeRef.current = "contact";
+  };
+
   const handleMobileNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: SectionId
@@ -292,7 +298,7 @@ export function Navbar() {
       ) : (
         // ===== DESKTOP NAVBAR =====
         <div className="relative grid grid-cols-3 bg-white max-w-4xl w-full rounded-2xl px-4 py-3 items-center shadow-xl">
-          {/* LEFT — Logo */}
+          {/* LEFT - Logo */}
           <div className="flex justify-start">
             <a
               href="#home"
@@ -307,7 +313,7 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* MIDDLE — Nav Items */}
+          {/* MIDDLE - Nav Items */}
           <div className="flex justify-center gap-6">
             <a
               href="#home"
@@ -348,7 +354,7 @@ export function Navbar() {
             {/* Contact button (opens dropdown) */}
             <div className="relative" ref={dropdownRef}>
               <button
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 aria-expanded={contactOpen}
                 onClick={() => setContactOpen((s) => !s)}
                 className={`text-md font-medium flex items-center gap-2 ${
@@ -372,7 +378,6 @@ export function Navbar() {
                     : "opacity-0 scale-95 pointer-events-none"
                 }`}
               >
-                {/* LinkedIn */}
                 <a
                   ref={firstItemRef}
                   href={linkedInUrl}
@@ -380,71 +385,35 @@ export function Navbar() {
                   rel="noopener noreferrer"
                   role="menuitem"
                   className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                  onClick={() => {
-                    setContactOpen(false);
-                    setActive("contact");
-                    activeRef.current = "contact";
-                  }}
+                  onClick={closeDropdownWithContact}
                 >
-                  <svg
-                    className="w-5 h-5 text-[#0A66C2]"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.08 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zM8.5 8h3.84v2.19h.05c.54-1.02 1.86-2.09 3.83-2.09 4.1 0 4.86 2.7 4.86 6.2V24h-4v-7.08c0-1.69-.03-3.87-2.36-3.87-2.36 0-2.72 1.84-2.72 3.75V24h-4V8z" />
-                  </svg>
+                  <Linkedin className="w-5 h-5 text-[#0A66C2]" />
                 </a>
 
-                {/* Email */}
                 <a
                   href={mailTo}
                   role="menuitem"
                   className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                  onClick={() => {
-                    setContactOpen(false);
-                    setActive("contact");
-                    activeRef.current = "contact";
-                  }}
+                  onClick={closeDropdownWithContact}
                 >
-                  <svg
-                    className="w-5 h-5 text-[#EA4335]"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 13.065L1.5 6.5V18a2 2 0 002 2h17a2 2 0 002-2V6.5L12 13.065zM12 11L22.5 4H1.5L12 11z" />
-                  </svg>
+                  <Mail className="w-5 h-5 text-[#EA4335]" />
                 </a>
 
-                {/* GitHub */}
                 <a
                   href={githubUrl}
-                  role="menuitem"
                   target="_blank"
                   rel="noopener noreferrer"
+                  role="menuitem"
                   className="flex items-center justify-center px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
-                  onClick={() => {
-                    setContactOpen(false);
-                    setActive("contact");
-                    activeRef.current = "contact";
-                  }}
+                  onClick={closeDropdownWithContact}
                 >
-                  <svg
-                    className="w-5 h-5 text-gray-800"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.9 3.17 9.06 7.57 10.53.55.1.75-.24.75-.53v-1.87c-3.08.67-3.73-1.5-3.73-1.5-.5-1.26-1.22-1.6-1.22-1.6-.99-.68.08-.66.08-.66 1.1.08 1.68 1.13 1.68 1.13.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.46-.28-5.05-1.23-5.05-5.47 0-1.21.43-2.2 1.13-2.98-.12-.28-.49-1.41.1-2.94 0 0 .9-.29 2.95 1.13a10.1 10.1 0 012.68-.36c.91 0 1.83.12 2.68.36 2.05-1.42 2.95-1.13 2.95-1.13.59 1.53.22 2.66.1 2.94.7.78 1.13 1.77 1.13 2.98 0 4.25-2.6 5.19-5.07 5.47.39.34.74 1.02.74 2.06v3.05c0 .29.19.64.76.53 4.4-1.47 7.57-5.63 7.57-10.53C23.25 5.48 18.27.5 12 .5z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <Github className="w-5 h-5 text-gray-800" />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* RIGHT — Resume (download) */}
+          {/* RIGHT - Resume (download) */}
           <div className="flex justify-end">
             <a
               href="/Khushal_Jain_Resume.pdf"

@@ -4,8 +4,6 @@ import {
   Geist_Mono,
   Bebas_Neue,
   Story_Script,
-  Oswald,
-  Inter,
   DM_Serif_Display,
 } from "next/font/google";
 
@@ -29,17 +27,7 @@ export const storyScript = Story_Script({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-story-script",
-});
-
-export const oswald = Oswald({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-oswald",
-});
-
-export const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  adjustFontFallback: false,
 });
 
 export const dmSerifSans = DM_Serif_Display({

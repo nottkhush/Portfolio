@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Mail, Linkedin, Github, FileText } from "lucide-react";
 import { motion, Variants } from "framer-motion";
-import { Button } from "@/components/ui/button";
 
 type SocialLinkProps = {
   href: string;
@@ -122,13 +121,11 @@ export default function Contact() {
           <a
             href="/Khushal_Jain_Resume.pdf"
             download="Khushal_Jain_Resume.pdf"
-            className="inline-flex items-center gap-2"
             aria-label="Download resume"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white border border-gray-200 text-gray-800 text-sm font-semibold shadow-sm hover:bg-gray-900 hover:text-white hover:border-gray-900 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300"
           >
-            <Button className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white border border-gray-200 text-gray-800 shadow-sm hover:shadow-md hover:text-white">
-              <FileText size={16} />
-              Download resume
-            </Button>
+            <FileText size={16} />
+            Download resume
           </a>
 
           <span className="hidden sm:inline-block">•</span>
